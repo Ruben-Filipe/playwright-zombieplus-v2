@@ -1,0 +1,60 @@
+{
+  "create": {
+    "title": "Guerra Mundial Z",
+    "overview": "Um ex-investigador da ONU viaja pelo mundo tentando descobrir a origem de uma pandemia global que transforma pessoas em criaturas extremamente agressivas.",
+    "company": "Paramount Pictures",
+    "releaseYear": 2013,
+    "featured": false,
+    "cover": "/covers/movies/wwz.png"
+  },
+  "toRemove": {
+    "title": "A Noite dos Mortos-Vivos",
+    "overview": "Um grupo de pessoas se refugia em uma casa isolada enquanto mortos-vivos começam a atacar os vivos sem explicação aparente.",
+    "company": "Universal Pictures",
+    "releaseYear": 1968,
+    "featured": false,
+    "cover": "/covers/movies/mortos-vivos.jpg"
+  },
+  "duplicate": {
+    "title": "Resident Evil: O Hóspede Maldito",
+    "overview": "Um experimento genético dá errado e libera um vírus mortal que transforma funcionários de um laboratório subterrâneo em zumbis.",
+    "company": "Columbia Pictures",
+    "releaseYear": 2002,
+    "featured": false,
+    "cover": "/covers/movies/resident-evil.jpg"
+  },
+  "search": {
+    "input": "zumbi",
+    "outputs": [
+      "Zumbilândia",
+      "Invasão Zumbis",
+      "Meu Namorado é um Zumbi"
+    ],
+    "data": [
+      {
+        "title": "Zumbilândia",
+        "overview": "Em um mundo dominado por zumbis, um grupo improvável de sobreviventes cruza os Estados Unidos seguindo regras próprias para continuar vivo.",
+        "company": "Sony Pictures",
+        "releaseYear": 2009,
+        "featured": false,
+        "cover": "https://example.com/covers/zumbilandia.png"
+      },
+      {
+        "title": "Invasão Zumbis",
+        "overview": "Durante uma viagem de trem, passageiros precisam lutar pela sobrevivência quando um surto zumbi se espalha rapidamente pela Coreia do Sul.",
+        "company": "Universal Pictures",
+        "releaseYear": 2016,
+        "featured": false,
+        "cover": "https://example.com/covers/invasao-zumbi.png"
+      },
+      {
+        "title": "Meu Namorado é um Zumbi",
+        "overview": "Após um apocalipse zumbi, um morto-vivo introspectivo começa a recuperar sua humanidade ao se apaixonar por uma jovem sobrevivente, desencadeando mudanças inesperadas no mundo ao seu redor.",
+        "company": "Fox Entertainment",
+        "releaseYear": 2013,
+        "featured": false,
+        "cover": "https://example.com/covers/meu-namorado-e-um-zumbi.png"
+      }
+    ]
+  }
+}

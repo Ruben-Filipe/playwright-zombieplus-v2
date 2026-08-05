@@ -1,0 +1,24 @@
+{
+  "name": "desktop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "web": "npm --prefix ../../apps/zombieplus/web run dev",
+    "api": "npm --prefix ../../apps/zombieplus/api run dev",
+    "test": "npx playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^10.5.0",
+    "@playwright/test": "^1.62.0",
+    "@types/node": "^26.1.2",
+    "@types/pg": "^8.20.3",
+    "pg": "^8.22.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  }
+}
