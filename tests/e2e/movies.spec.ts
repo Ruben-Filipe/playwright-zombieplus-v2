@@ -4,6 +4,11 @@ import { executeSQL } from '../support/database';
 
 const EMAIL = 'admin@zombieplus.com';
 const PASSWORD = 'pwd123';
+const SUCCESS_MESSAGE = 'Cadastro realizado com sucesso!';
+
+test.beforeAll(async () => {
+    await executeSQL('DELETE FROM public.movies;');
+});
 
 test.beforeEach(async ({ login }) => {
     await login.visit();
@@ -13,13 +18,23 @@ test.beforeEach(async ({ login }) => {
 
 test('deve poder cadastrar um novo filme', async ({ movies }) => {
     const movie = data.create;
-    const successMessage = 'Cadastro realizado com sucesso!';
-    
-    await executeSQL(`DELETE FROM public.movies WHERE title = '${movie.title}';`);
 
     await movies.openRegisterForm();
     await movies.createMovie(movie);
-    await movies.toast.verifyMessage(successMessage);
+    await movies.toast.verifyMessage(SUCCESS_MESSAGE);
+});
+
+test('não deve cadastrar quando o título é duplicado', async ({ movies }) => {
+    const movie = data.duplicate;
+    const errorMessage = 'Este conteúdo já encontra-se cadastrado no catálogo';
+
+    await movies.openRegisterForm();
+    await movies.createMovie(movie);
+    await movies.toast.verifyMessage(SUCCESS_MESSAGE);
+
+    await movies.openRegisterForm();
+    await movies.createMovie(movie);
+    await movies.toast.verifyMessage(errorMessage);
 });
 
 test('não deve cadastrar quando os campos obrigatórios não são preenchidos', async ({ movies }) => {
