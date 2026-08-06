@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { expect, test } from '../support';
+import { test } from '../support';
 
 const SUCCESS_MESSAGE = 'Agradecemos por compartilhar seus dados conosco. Em breve, nossa equipe entrará em contato!';
 
@@ -19,17 +19,10 @@ test('deve cadastrar um lead na fila de espera', async ({ landing }) => {
   await landing.toast.verifyMessage(SUCCESS_MESSAGE);
 });
 
-test('não deve cadastrar quando o email que já existe', async ({ request, landing }) => {
+test('não deve cadastrar quando o email que já existe', async ({ api, landing }) => {
   const duplicateMessage = 'O endereço de e-mail fornecido já está registrado em nossa fila de espera.';
 
-  const response = await request.post('http://localhost:3333/leads', {
-    data: {
-      name: fullName,
-      email
-    }
-  });
-
-  expect(response.ok()).toBeTruthy();
+  await api.createLead(fullName, email);
 
   await landing.submitLeadForm(fullName, email);
   await landing.toast.verifyMessage(duplicateMessage);

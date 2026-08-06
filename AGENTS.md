@@ -231,12 +231,45 @@ import { test, expect } from '../support';
 
 test('deve poder cadastrar um novo filme', async ({ movies }) => {
   await movies.openRegisterForm();
+  await movies.createMovie(data.create);
+  await expect(movies.toast.message).toBeVisible();
 });
 ```
 
 ---
 
-# 8. Navigation
+# 8. API Layer and Request Fixtures
+
+## Rules
+
+* API requests must be centralized in `tests/support/api/index.ts`.
+* Each API request must be implemented inside an `Api` class instead of being scattered across action objects or specs.
+* API methods must be exclusive to the `Api` class; action classes must only contain UI interactions and never implement API request logic.
+* The `Api` class must receive the Playwright request context in its constructor.
+* The shared test fixture setup in `tests/support/index.ts` should expose an `api` fixture and create a request context configured with the API base URL.
+* API methods should be business meaningful and reusable, such as `createLead`, `setToken`, and `createMovie`.
+* Specs should use the `api` fixture instead of calling `request.post` directly.
+* UI actions should stay focused on browser interactions; if a test needs API setup, it should call the `api` fixture from the spec.
+
+## Example
+
+```ts
+// tests/support/api/index.ts
+export class Api {
+
+  constructor(private readonly request: APIRequestContext) {}
+
+  async createLead(name: string, email: string): Promise<void> {
+    const response = await this.request.post('/leads', {
+      data: { name, email }
+    });
+
+    expect(response.ok()).toBeTruthy();
+  }
+}
+```
+
+# 9. Navigation
 
 Each action object should expose a single `visit()` method.
 
@@ -258,7 +291,7 @@ async visit(): Promise<void> {
 
 ---
 
-# 9. Standard Class Layout
+# 10. Standard Class Layout
 
 Every action object must follow the exact structure below.
 
@@ -284,7 +317,7 @@ Maintaining this layout across all action objects ensures consistency, improves 
 
 ---
 
-# 10. Reuse in Specs
+# 11. Reuse in Specs
 
 ## Rules
 

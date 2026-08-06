@@ -7,7 +7,7 @@ const PASSWORD = 'pwd123';
 const SUCCESS_MESSAGE = 'Cadastro realizado com sucesso!';
 
 test.beforeAll(async () => {
-    await executeSQL('DELETE FROM public.movies;');
+    await executeSQL('DELETE FROM public.movies;'); 
 });
 
 test.beforeEach(async ({ login }) => {
@@ -24,13 +24,12 @@ test('deve poder cadastrar um novo filme', async ({ movies }) => {
     await movies.toast.verifyMessage(SUCCESS_MESSAGE);
 });
 
-test('não deve cadastrar quando o título é duplicado', async ({ movies }) => {
+test('não deve cadastrar quando o título é duplicado', async ({ movies, api }) => {
     const movie = data.duplicate;
     const errorMessage = 'Este conteúdo já encontra-se cadastrado no catálogo';
 
-    await movies.openRegisterForm();
-    await movies.createMovie(movie);
-    await movies.toast.verifyMessage(SUCCESS_MESSAGE);
+    await api.setToken(EMAIL, PASSWORD);
+    await api.createMovie(movie);
 
     await movies.openRegisterForm();
     await movies.createMovie(movie);

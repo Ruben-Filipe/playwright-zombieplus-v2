@@ -1,14 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { Toast } from './Toast';
-
-export interface MovieData {
-    title: string;
-    overview: string;
-    company: string;
-    releaseYear: number;
-    featured?: boolean;
-    cover?: string;
-}
+import { MovieData } from '../api';
 
 export class Movies {
     readonly registerLink: Locator;
