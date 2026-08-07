@@ -16,9 +16,9 @@ export class Api {
         this.token = '';
     }
 
-    async setToken(email: string, password: string): Promise<void> {
+    async setToken(): Promise<void> {
         const response = await this.request.post('/sessions', {
-            data: { email, password }
+            data: { email: 'admin@zombieplus.com', password: 'pwd123' }
         });
 
         expect(response.ok()).toBeTruthy();

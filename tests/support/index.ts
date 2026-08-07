@@ -16,7 +16,11 @@ export const test = base.extend<AppFixtures>({
     const apiContext = await request.newContext({
       baseURL: process.env.API_BASE_URL ?? 'http://localhost:3333',
     });
-    await use(new Api(apiContext));
+
+    const api = new Api(apiContext);
+    await api.setToken();
+
+    await use(api);
     await apiContext.dispose();
   },
   landing: async ({ page }, use) => {
