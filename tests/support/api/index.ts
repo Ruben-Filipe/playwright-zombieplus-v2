@@ -1,4 +1,4 @@
-import { APIRequestContext, APIResponse, expect } from '@playwright/test';
+import { APIRequestContext, expect } from '@playwright/test';
 
 export interface MovieData {
     title: string;
@@ -42,6 +42,8 @@ export class Api {
     }
 
     async createMovie(movie: MovieData): Promise<void> {
+        const companyId = await this.getCompanyIdByName(movie.company);
+
         const response = await this.request.post('/movies', {
             headers: {
                 Authorization: this.token,
@@ -51,7 +53,7 @@ export class Api {
             multipart: {
                 title: movie.title,
                 overview: movie.overview,
-                company_id: '2898f430-7c55-49fc-a90a-c10da3f43a32',
+                company_id: companyId,
                 release_year: movie.releaseYear,
                 //cover: movie.cover,
                 featured: movie.featured || false
@@ -59,5 +61,18 @@ export class Api {
         });
 
         expect(response.ok()).toBeTruthy();
+    }
+
+    async getCompanyIdByName(name: string): Promise<string | null> {
+        const response = await this.request.get('/companies', {
+            params: { name },
+            headers: this.token ? { Authorization: this.token } : undefined
+        });
+
+        expect(response.ok()).toBeTruthy();
+
+        const body = await response.json();
+        const first = body && Array.isArray(body.data) && body.data[0];
+        return first && first.id ? first.id : null;
     }
 }
