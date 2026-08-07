@@ -29,7 +29,7 @@ test('deve poder remover um filme', async ({ movies, api }) => {
     const successMessage = 'Filme removido com sucesso.';
 
     await api.createMovie(movie);
-    
+
     await movies.visit();
     await movies.removeMovie(movie.title);
     await movies.popup.verifyMessage(successMessage);
@@ -44,6 +44,18 @@ test('não deve cadastrar quando o título é duplicado', async ({ movies, api }
     await movies.openRegisterForm();
     await movies.createMovie(movie);
     await movies.popup.verifyMessage(errorMessage);
+});
+
+test('deve realizar busca pelo termo zumbi', async ({ movies, api }) => {
+    const search = data.search;
+
+    for (const movie of search.data) {
+        await api.createMovie(movie);
+    }
+
+    await movies.visit();
+    await movies.search(search.input);
+    await movies.verifyMoviesAreDisplayed(search.outputs);
 });
 
 test('não deve cadastrar quando os campos obrigatórios não são preenchidos', async ({ movies }) => {

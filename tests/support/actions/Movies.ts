@@ -11,6 +11,7 @@ export class Movies {
     readonly featuredSwitch: Locator;
     readonly coverInput: Locator;
     readonly registerButton: Locator;
+    readonly searchInput: Locator;
     readonly popup: Popup;
     readonly registerForm: Locator;
     readonly alert: Locator;
@@ -24,6 +25,7 @@ export class Movies {
         this.featuredSwitch = page.locator('.featured .react-switch');
         this.coverInput = page.locator('input[name="cover"]');
         this.registerButton = page.getByRole('button', { name: 'Cadastrar' });
+        this.searchInput = page.getByPlaceholder('Busque pelo nome');
         this.popup = new Popup(page);
         this.registerForm = page.locator('form');
         this.alert = page.locator('.alert');
@@ -63,6 +65,17 @@ export class Movies {
         }
 
         await this.submitForm();
+    }
+
+    async search(term: string): Promise<void> {
+        await this.searchInput.fill(term);
+        await this.searchInput.press('Enter');
+    }
+
+    async verifyMoviesAreDisplayed(titles: string[]): Promise<void> {
+        for (const title of titles) {
+            await expect(this.page.getByRole('row').locator('.title', { hasText: title })).toBeVisible();
+        }
     }
 
     private async selectOption(element: Locator, value: string): Promise<void> {
