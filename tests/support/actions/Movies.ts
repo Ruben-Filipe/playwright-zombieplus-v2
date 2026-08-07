@@ -73,9 +73,7 @@ export class Movies {
     }
 
     async verifyMoviesAreDisplayed(titles: string[]): Promise<void> {
-        for (const title of titles) {
-            await expect(this.page.getByRole('row').locator('.title', { hasText: title })).toBeVisible();
-        }
+        await expect(this.page.getByRole('row').locator('.title')).toHaveText(titles);
     }
 
     private async selectOption(element: Locator, value: string): Promise<void> {
