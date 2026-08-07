@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { test } from '../support';
 
-const SUCCESS_MESSAGE = 'Agradecemos por compartilhar seus dados conosco. Em breve, nossa equipe entrará em contato!';
+const SUCCESS_MESSAGE = 'Agradecemos por compartilhar seus dados conosco. Em breve, nossa equipe entrará em contato.';
 
 let fullName: string;
 let email: string;
@@ -16,16 +16,16 @@ test.beforeEach(async ({ landing }) => {
 
 test('deve cadastrar um lead na fila de espera', async ({ landing }) => {
   await landing.submitLeadForm(fullName, email);
-  await landing.toast.verifyMessage(SUCCESS_MESSAGE);
+  await landing.popup.verifyMessage(SUCCESS_MESSAGE);
 });
 
 test('não deve cadastrar quando o email que já existe', async ({ api, landing }) => {
-  const duplicateMessage = 'O endereço de e-mail fornecido já está registrado em nossa fila de espera.';
+  const duplicateMessage = 'Verificamos que o endereço de e-mail fornecido já consta em nossa lista de espera. Isso significa que você está um passo mais perto de aproveitar nossos serviços.';
 
   await api.createLead(fullName, email);
 
   await landing.submitLeadForm(fullName, email);
-  await landing.toast.verifyMessage(duplicateMessage);
+  await landing.popup.verifyMessage(duplicateMessage);
 });
 
 test('não deve cadastrar com email incorreto', async ({ landing }) => {

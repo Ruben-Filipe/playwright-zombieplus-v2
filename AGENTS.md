@@ -232,7 +232,7 @@ import { test, expect } from '../support';
 test('deve poder cadastrar um novo filme', async ({ movies }) => {
   await movies.openRegisterForm();
   await movies.createMovie(data.create);
-  await expect(movies.toast.message).toBeVisible();
+  await movies.popup.verifyMessage(SUCCESS_MESSAGE);
 });
 ```
 

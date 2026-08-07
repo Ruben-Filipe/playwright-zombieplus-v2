@@ -1,5 +1,5 @@
 import { expect, Locator, Page } from '@playwright/test';
-import { Toast } from './Toast';
+import { Popup } from './Popup';
 
 export class Landing {
     readonly playButton: Locator;
@@ -7,7 +7,7 @@ export class Landing {
     readonly nameInput: Locator;
     readonly emailInput: Locator;
     readonly submitButton: Locator;
-    readonly toast: Toast;
+    readonly popup: Popup;
     readonly alert: Locator;
 
     constructor(private readonly page: Page) {
@@ -16,7 +16,7 @@ export class Landing {
         this.nameInput = page.getByPlaceholder('Informe seu nome');
         this.emailInput = page.getByPlaceholder('Informe seu email');
         this.submitButton = page.getByRole('button', { name: 'Quero entrar na fila!' });
-        this.toast = new Toast(page);
+        this.popup = new Popup(page);
         this.alert = page.locator('.alert');
     }
 

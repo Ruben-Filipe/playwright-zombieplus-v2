@@ -1,4 +1,4 @@
-import { test, expect } from '../support';
+import { test } from '../support';
 
 const EMAIL = 'admin@zombieplus.com';
 const PASSWORD = 'pwd123';
@@ -13,10 +13,10 @@ test('deve logar como administrador', async ({ login }) => {
 });
 
 test('não deve logar com senha incorreta', async ({ login }) => {
-    const message = 'Oops!Ocorreu um erro ao tentar efetuar o login. Por favor, verifique suas credenciais e tente novamente.';
+    const message = 'Ocorreu um erro ao tentar efetuar o login. Por favor, verifique suas credenciais e tente novamente.';
 
     await login.login(EMAIL, 'abc123');
-    await login.toast.verifyMessage(message);
+    await login.popup.verifyMessage(message);
 });
 
 test('não deve logar quando o email é inválido', async ({ login }) => {

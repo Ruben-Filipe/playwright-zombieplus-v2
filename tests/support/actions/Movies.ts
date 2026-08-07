@@ -1,5 +1,5 @@
 import { expect, Locator, Page } from '@playwright/test';
-import { Toast } from './Toast';
+import { Popup } from './Popup';
 import { MovieData } from '../api';
 
 export class Movies {
@@ -11,7 +11,7 @@ export class Movies {
     readonly featuredSwitch: Locator;
     readonly coverInput: Locator;
     readonly registerButton: Locator;
-    readonly toast: Toast;
+    readonly popup: Popup;
     readonly registerForm: Locator;
     readonly alert: Locator;
 
@@ -24,7 +24,7 @@ export class Movies {
         this.featuredSwitch = page.locator('.featured .react-switch');
         this.coverInput = page.locator('input[name="cover"]');
         this.registerButton = page.getByRole('button', { name: 'Cadastrar' });
-        this.toast = new Toast(page);
+        this.popup = new Popup(page);
         this.registerForm = page.locator('form');
         this.alert = page.locator('.alert');
     }

@@ -1,12 +1,12 @@
 import { expect, Locator, Page } from '@playwright/test';
-import { Toast } from './Toast';
+import { Popup } from './Popup';
 
 export class Login {
     readonly loginForm: Locator;
     readonly emailInput: Locator;
     readonly passwordInput: Locator;
     readonly loginButton: Locator;
-    readonly toast: Toast;
+    readonly popup: Popup;
     readonly alert: Locator;
     readonly loggedUser: Locator;
 
@@ -15,7 +15,7 @@ export class Login {
         this.emailInput = page.getByPlaceholder('E-mail');
         this.passwordInput = page.getByPlaceholder('Senha');
         this.loginButton = page.getByRole('button', { name: /entrar/i });
-        this.toast = new Toast(page);
+        this.popup = new Popup(page);
         this.alert = page.locator('[class$="alert"]');
         this.loggedUser = page.locator('.logged-user');
     }
