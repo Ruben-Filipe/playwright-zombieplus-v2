@@ -42,6 +42,12 @@ export class Movies {
         await expect(this.alert).toHaveText(message);
     }
 
+    async removeMovie(title: string): Promise<void> {
+        const movieRow = this.page.getByRole('row').filter({ has: this.page.getByRole('cell', { name: title }) });
+        await movieRow.getByRole('button').click();
+        await this.page.locator('.confirm-removal').click();
+    }
+
     async createMovie(movie: MovieData): Promise<void> {
         await this.titleInput.fill(movie.title);
         await this.overviewInput.fill(movie.overview);
