@@ -3,11 +3,13 @@ import { Api } from './api';
 import { Login } from './actions/Login';
 import { Landing } from './actions/Landing';
 import { Movies } from './actions/Movies';
+import { Tvshows } from './actions/Tvshows';
 
 type AppFixtures = {
   landing: Landing;
   login: Login;
   movies: Movies;
+  tvshows: Tvshows;
   api: Api;
 };
 
@@ -31,6 +33,9 @@ export const test = base.extend<AppFixtures>({
   },
   movies: async ({ page }, use) => {
     await use(new Movies(page));
+  },
+  tvshows: async ({ page }, use) => {
+    await use(new Tvshows(page));
   },
 });
 

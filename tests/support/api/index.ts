@@ -9,6 +9,16 @@ export interface MovieData {
     cover?: string;
 }
 
+export interface TvshowData {
+    title: string;
+    overview: string;
+    company: string;
+    releaseYear: number;
+    seasons: number;
+    featured?: boolean;
+    cover?: string;
+}
+
 export class Api {
     private token: string;
 
@@ -55,8 +65,29 @@ export class Api {
                 overview: movie.overview,
                 company_id: companyId,
                 release_year: movie.releaseYear,
-                //cover: movie.cover,
                 featured: movie.featured || false
+            }
+        });
+
+        expect(response.ok()).toBeTruthy();
+    }
+
+    async createTvshow(tvshow: TvshowData): Promise<void> {
+        const companyId = await this.getCompanyIdByName(tvshow.company);
+
+        const response = await this.request.post('/tvshows', {
+            headers: {
+                Authorization: this.token,
+                ContentType: 'multipart/form-data',
+                Accept: 'application/json, text/plain */*'
+            },
+            multipart: {
+                title: tvshow.title,
+                overview: tvshow.overview,
+                company_id: companyId,
+                release_year: tvshow.releaseYear,
+                seasons: tvshow.seasons,
+                featured: tvshow.featured || false
             }
         });
 
